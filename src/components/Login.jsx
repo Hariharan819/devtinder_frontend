@@ -3,12 +3,14 @@ import { Mail, Lock, Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { adduser } from "../Utils/userslice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const dispatch=useDispatch();
+  const navigate = useNavigate();
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -22,6 +24,7 @@ const Login = () => {
   
   );
     dispatch(adduser(res.data));
+    return navigate("/");
     } catch (err) {
       console.error("Login failed:", err);
     }
