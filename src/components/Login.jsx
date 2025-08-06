@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login attempt:", { email, password });
+  const handleSubmit = async() => {
+    try {
+       const res =await axios.post("http://localhost:3000/login" ,{
+        emailId,password
+   },{withCredentials: true});
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
 
   return (
@@ -42,8 +48,8 @@ const Login = () => {
               </div>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
                 placeholder="you@example.com"
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50/50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
                 required
@@ -85,7 +91,7 @@ const Login = () => {
           <button
             type="button"
             onClick={handleSubmit}
-            className="w-full flex justify-center items-center gap-2 py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="w-full flex justify-center cursor-pointer items-center gap-2 py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             <LogIn className="w-5 h-5" />
             Login In
