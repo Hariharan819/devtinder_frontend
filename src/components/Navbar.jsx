@@ -8,16 +8,20 @@ const Navbar = () => {
   <div className="flex-1">
     <a className="btn btn-ghost text-xl">DevTinder</a>
   </div>
-  <div className="flex gap-2">
+  <div className="flex ">
    
-    <div className="dropdown dropdown-end mx-8">
+    {user && <p className='mx-2 my-2'>Welcome, {user.firstName} </p>}
+    <div className="dropdown dropdown-end mx-6">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+      
         {!user &&<div className="w-10 rounded-full">
           <img
             alt="Default Avatar"
             src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
         </div>}
+
          {user &&<div className="w-10 rounded-full">
+        
           <img
             alt="Profile Avatar"
             src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
