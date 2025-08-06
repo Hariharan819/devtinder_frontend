@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { adduser } from "../Utils/userslice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-
+  const dispatch=useDispatch();
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -15,7 +17,11 @@ const Login = () => {
     try {
        const res =await axios.post("http://localhost:3000/login" ,{
         emailId,password
-   },{withCredentials: true});
+   },
+   {withCredentials: true}
+  
+  );
+    dispatch(adduser(res.data));
     } catch (err) {
       console.error("Login failed:", err);
     }

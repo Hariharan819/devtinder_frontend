@@ -5,7 +5,8 @@ import Login from "./components/Login"
 import Feed from "./components/Feed"
 import Body from "./Body"
 import { Provider } from "react-redux"
-import { appstore } from "./Utils/appstore"
+import appstore from "./Utils/appstore"
+
 function App() {
   return (
     <>
