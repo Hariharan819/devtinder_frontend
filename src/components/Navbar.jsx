@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Base_Url } from '../Utils/constants'
 import axios from 'axios'
 
+
 const Navbar = () => {
 const user=useSelector(store =>store.user)
 const navigate=useNavigate();
@@ -22,7 +23,7 @@ const  dispatch=useDispatch();
   return (
    <div className="navbar bg-base-200 shadow-sm">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">DevTinder</a>
+    <a  className="btn btn-ghost text-xl">DevTinder</a>
   </div>
   <div className="flex gap-2 ">
    

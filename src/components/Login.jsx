@@ -10,6 +10,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error ,setError]=useState("");
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const togglePasswordVisibility = () => {
@@ -27,6 +28,7 @@ const Login = () => {
     dispatch(adduser(res.data));
     return navigate("/");
     } catch (err) {
+     setError(err?.response?.data || "Login failed");
       console.error("Login failed:", err);
     }
   };
@@ -97,6 +99,7 @@ const Login = () => {
               </button>
             </div>
           </div>
+          <div><p className="text-red-500 text-md">{error}</p></div>
           {/* Login Button */}
           <button
             type="button"
