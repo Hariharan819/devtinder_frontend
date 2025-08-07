@@ -29,7 +29,7 @@ const Login = () => {
     return navigate("/");
     } catch (err) {
      setError(err?.response?.data || "Login failed");
-      console.error("Login failed:", err);
+    console.error("Login failed:", err);
     }
   };
 
