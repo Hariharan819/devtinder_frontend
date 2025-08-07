@@ -8,10 +8,10 @@ const Navbar = () => {
   <div className="flex-1">
     <a className="btn btn-ghost text-xl">DevTinder</a>
   </div>
-  <div className="flex ">
+  <div className="flex gap-2 ">
    
     {user && <p className='mx-2 my-2'>Welcome, {user.firstName} </p>}
-    <div className="dropdown dropdown-end mx-6">
+    <div className="dropdown dropdown-end mr-6">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
       
         {!user &&<div className="w-10 rounded-full">

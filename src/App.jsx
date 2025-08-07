@@ -3,7 +3,7 @@ import Footer from "./components/footer"
 import Navbar from "./components/Navbar"
 import Login from "./components/Login"
 import Feed from "./components/Feed"
-import Body from "./Body"
+import Body from "./components/Body"
 import { Provider } from "react-redux"
 import appstore from "./Utils/appstore"
 
