@@ -5,6 +5,7 @@ import Footer from './footer'
 import axios from 'axios'
 import {Base_Url} from "../Utils/constants"
 import { useDispatch, useSelector } from 'react-redux'
+import { adduser } from '../Utils/userslice'
 
 const Body = () => {
 
