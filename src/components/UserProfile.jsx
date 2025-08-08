@@ -57,23 +57,19 @@ export default function UserProfile( {user}) {
           </div>
 
           {/* Skills section */}
-          <div>
-            <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-              <Award className="w-3 h-3 sm:w-4 sm:h-4 text-indigo-500 flex-shrink-0" />
-              <h3 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Skills & Expertise
-              </h3>
-            </div>
-            
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {/* {user.skills.map((skill, index) => ( */}
+          <div className="mb-6">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Skills:
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {user.skills.map((skill, index) => (
                 <span
-                  // key={index}
-                  className="group bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-medium px-2 py-1 sm:px-3 sm:py-2 rounded-full border border-indigo-200 dark:border-indigo-700 transition-all duration-200 hover:scale-105 hover:shadow-md hover:from-indigo-100 hover:to-purple-100 dark:hover:from-indigo-800/50 dark:hover:to-purple-800/50 cursor-default"
+                  key={index}
+                  className="bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 text-xs font-medium px-3 py-1 rounded-full"
                 >
-                  {user.skills}
+                  {skill}
                 </span>
-              {/* ))} */}
+              ))}
             </div>
           </div>
 

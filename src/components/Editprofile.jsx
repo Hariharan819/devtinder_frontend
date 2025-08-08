@@ -14,7 +14,7 @@ import axios from 'axios';
 import { Base_Url } from '../Utils/constants';
 import { useDispatch } from 'react-redux';
 import { adduser } from '../Utils/userslice';
-import UserProfile from './UserProfile';
+
 
 export default function EditableProfileCard({user}) {
   const [firstName, setFirstName] = useState(user?.firstName);
@@ -43,7 +43,7 @@ try {
       withCredentials: true
     });
     dispatch(adduser(res?.data?.data));
-    console.log(res?.data);
+    console.log(res);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
 } catch (err) {
@@ -58,16 +58,6 @@ const handlepreview =()=>{
   return (
     <>
 
-
-{
-  Preview &&  <UserProfile user={{ firstName,
-      lastName,
-      age,
-      skills,
-      description,
-      profileUrl,
-      gender}}/>
-}
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
     {showToast && (
     <div className="fixed top-5 left-1/2 -translate-x-1/2  w-[90%] sm:w-auto max-w-sm bg-white dark:bg-gray-800  border border-green-500/30 text-gray-900 dark:text-white  px-5 py-3 rounded-xl shadow-lg z-50 flex items-center gap-3">
@@ -258,7 +248,7 @@ const handlepreview =()=>{
             <div className="flex justify-center mb-10 gap-3">
               <button
                
-                className="group relative cursor-pointer px-8 py-4 bg-gradient-to-r from-green-800 via-green-700 to-green-600  text-white font-bold rounded-2xl shadow-lg hover:shadow-xl"
+                className="group relative cursor-pointer px-8 py-1 bg-gradient-to-r from-green-800 via-green-700 to-green-600  text-white font-bold rounded-2xl shadow-lg hover:shadow-xl"
               >
                 <div  onClick={handleSave} className="flex items-center gap-3">
                   <Save size={20} />
@@ -268,7 +258,7 @@ const handlepreview =()=>{
               </button>
               <button
                
-                className="group relative cursor-pointer px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl "
+                className="group relative cursor-pointer px-8 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl "
               >
                 <div  onClick={handlepreview} className="flex items-center gap-3">
                   <Save size={20} />
