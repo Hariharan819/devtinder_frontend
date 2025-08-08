@@ -28,7 +28,7 @@ useEffect(() => {
 }, []);
  return (
     feed && (<div>
-      <UserProfile user={feed}/>
+      <UserProfile user={feed[0]}/>
 
     </div>)
   )

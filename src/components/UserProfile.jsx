@@ -130,10 +130,10 @@ export default function UserProfile( { user }) {
 
           {/* Desktop Action buttons */}
           <div className="flex gap-3">
-            <button className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-sm font-medium py-2.5 px-4 rounded-lg transition-all duration-200 hover:from-green-600 hover:to-emerald-700 hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+            <button className="flex-1 cursor-pointer bg-gradient-to-r from-green-500 to-emerald-600 text-white text-sm font-medium py-2.5 px-4 rounded-lg transition-all duration-200 hover:from-green-600 hover:to-emerald-700 hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
               Interested
             </button>
-            <button className="flex-1 bg-gradient-to-r from-red-500 to-rose-600 text-white text-sm font-medium py-2.5 px-4 rounded-lg transition-all duration-200 hover:from-red-600 hover:to-rose-700 hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+            <button className="flex-1 cursor-pointer bg-gradient-to-r from-red-500 to-rose-600 text-white text-sm font-medium py-2.5 px-4 rounded-lg transition-all duration-200 hover:from-red-600 hover:to-rose-700 hover:shadow-lg transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
               Not Interested
             </button>
           </div>
