@@ -8,9 +8,7 @@ import {
   Users, 
   Camera, 
   Save,
-  MapPin,
-  Phone,
-  Globe
+  CheckCircle
 } from 'lucide-react';
 
 export default function EditableProfileCard({user}) {
@@ -23,22 +21,35 @@ export default function EditableProfileCard({user}) {
   const [description, setDescription] = useState(user?.description);
   const [profileUrl, setProfileUrl] = useState(user?.profileUrl);
   const [gender, setGender] = useState(user?.gender);
+const [showToast, setShowToast] = useState(false);
 
   const handleSave = () => {
     console.log('Profile Saved:', {
       firstName,
       lastName,
-      emailId,
       age,
       skills,
       description,
       profileUrl,
       gender
     });
+     setShowToast(true);
+
+  // Hide after 2 seconds
+  setTimeout(() => setShowToast(false), 2000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
+    {showToast && (
+    <div className="fixed top-5 left-1/2 -translate-x-1/2  w-[90%] sm:w-auto max-w-sm bg-white dark:bg-gray-800  border border-green-500/30 text-gray-900 dark:text-white  px-5 py-3 rounded-xl shadow-lg z-50 flex items-center gap-3">
+    <CheckCircle className="text-green-500 flex-shrink-0" size={22} />
+    <span className="text-sm sm:text-base font-medium">
+      Profile saved successfully!
+    </span>
+   </div>
+  )}
+ 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
