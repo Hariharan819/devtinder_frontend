@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   User, 
   Mail, 
@@ -10,21 +10,28 @@ import {
   Save,
   CheckCircle
 } from 'lucide-react';
+import axios from 'axios';
+import { Base_Url } from '../Utils/constants';
+import { useDispatch } from 'react-redux';
+import { adduser } from '../Utils/userslice';
+import UserProfile from './UserProfile';
 
 export default function EditableProfileCard({user}) {
-  console.log(user);
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
-
   const [age, setAge] = useState(user?.age);
-  const [skills, setSkills] = useState([user?.skills].join(', '));
+  // const [skills, setSkills] = useState([user?.skills].join(', '));
+  const [skills, setSkills] = useState( Array.isArray(user?.skills) ? user.skills.join(", ") : "");
   const [description, setDescription] = useState(user?.description);
   const [profileUrl, setProfileUrl] = useState(user?.profileUrl);
   const [gender, setGender] = useState(user?.gender);
-const [showToast, setShowToast] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [Preview,setPreview] = useState(false);
+const dispatch = useDispatch();
+const handleSave = async() => {
 
-  const handleSave = () => {
-    console.log('Profile Saved:', {
+try {
+  const res=await axios.patch(Base_Url + "/profile/edit",{
       firstName,
       lastName,
       age,
@@ -32,14 +39,35 @@ const [showToast, setShowToast] = useState(false);
       description,
       profileUrl,
       gender
+    },{
+      withCredentials: true
     });
-     setShowToast(true);
+    dispatch(adduser(res?.data?.data));
+    console.log(res?.data);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+} catch (err) {
+  console.error(err);
+}
+};
 
-  // Hide after 2 seconds
-  setTimeout(() => setShowToast(false), 2000);
-  };
+const handlepreview =()=>{
+  setPreview(true);
+}
 
   return (
+    <>
+
+
+{
+  Preview &&  <UserProfile user={{ firstName,
+      lastName,
+      age,
+      skills,
+      description,
+      profileUrl,
+      gender}}/>
+}
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
     {showToast && (
     <div className="fixed top-5 left-1/2 -translate-x-1/2  w-[90%] sm:w-auto max-w-sm bg-white dark:bg-gray-800  border border-green-500/30 text-gray-900 dark:text-white  px-5 py-3 rounded-xl shadow-lg z-50 flex items-center gap-3">
@@ -53,7 +81,7 @@ const [showToast, setShowToast] = useState(false);
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
             Edit Profile
           </h1>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
@@ -163,7 +191,7 @@ const [showToast, setShowToast] = useState(false);
                   <select
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-xl border-2  border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none"
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -208,7 +236,7 @@ const [showToast, setShowToast] = useState(false);
                       )
                     ))}
                   </div>
-                </div>
+                </div> 
                 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -227,14 +255,24 @@ const [showToast, setShowToast] = useState(false);
             </div>
 
             {/* Save Button */}
-            <div className="flex justify-center mb-10">
+            <div className="flex justify-center mb-10 gap-3">
               <button
-                onClick={handleSave}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
+               
+                className="group relative cursor-pointer px-8 py-4 bg-gradient-to-r from-green-800 via-green-700 to-green-600  text-white font-bold rounded-2xl shadow-lg hover:shadow-xl"
               >
-                <div className="flex items-center gap-3">
+                <div  onClick={handleSave} className="flex items-center gap-3">
                   <Save size={20} />
                   Save Profile
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity -z-10"></div>
+              </button>
+              <button
+               
+                className="group relative cursor-pointer px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl "
+              >
+                <div  onClick={handlepreview} className="flex items-center gap-3">
+                  <Save size={20} />
+                  Preview Profile
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity -z-10"></div>
               </button>
@@ -243,5 +281,7 @@ const [showToast, setShowToast] = useState(false);
         </div>
       </div>
     </div>
+
+    </>
   );
 }

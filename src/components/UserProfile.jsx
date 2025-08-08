@@ -1,8 +1,8 @@
 import React from 'react';
 import { Mail, User, Calendar, Award } from 'lucide-react';
 
-export default function UserProfile( { user }) {
- console.log(user);
+export default function UserProfile( {user}) {
+
 
   return (
     <div className="w-full max-w-xs sm:max-w-sm md:max-w-md md:mt-20 mt-10  lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
@@ -66,14 +66,14 @@ export default function UserProfile( { user }) {
             </div>
             
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {user.skills.map((skill, index) => (
+              {/* {user.skills.map((skill, index) => ( */}
                 <span
-                  key={index}
+                  // key={index}
                   className="group bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-medium px-2 py-1 sm:px-3 sm:py-2 rounded-full border border-indigo-200 dark:border-indigo-700 transition-all duration-200 hover:scale-105 hover:shadow-md hover:from-indigo-100 hover:to-purple-100 dark:hover:from-indigo-800/50 dark:hover:to-purple-800/50 cursor-default"
                 >
-                  {skill}
+                  {user.skills}
                 </span>
-              ))}
+              {/* ))} */}
             </div>
           </div>
 
@@ -107,7 +107,6 @@ export default function UserProfile( { user }) {
           </div>
 
           <div className="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-1">
-            <p><span className="font-semibold">Email:</span> {user.emailId}</p>
             <p><span className="font-semibold">Gender:</span> {user.gender}</p>
             <p><span className="font-semibold">Age:</span> {user.age}</p>
           </div>
