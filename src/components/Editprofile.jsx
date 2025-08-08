@@ -13,15 +13,16 @@ import {
   Globe
 } from 'lucide-react';
 
-export default function EditableProfileCard() {
-  const [firstName, setFirstName] = useState('John');
-  const [lastName, setLastName] = useState('Doe');
-  const [emailId, setEmailId] = useState('john@example.com');
-  const [age, setAge] = useState(25);
-  const [skills, setSkills] = useState('React, TailwindCSS, JavaScript');
-  const [description, setDescription] = useState('Frontend Developer passionate about creating beautiful user experiences');
-  const [profileUrl, setProfileUrl] = useState('https://via.placeholder.com/150');
-  const [gender, setGender] = useState('Male');
+export default function EditableProfileCard({user}) {
+  console.log(user);
+  const [firstName, setFirstName] = useState(user?.firstName);
+  const [lastName, setLastName] = useState(user?.lastName);
+
+  const [age, setAge] = useState(user?.age);
+  const [skills, setSkills] = useState([user?.skills].join(', '));
+  const [description, setDescription] = useState(user?.description);
+  const [profileUrl, setProfileUrl] = useState(user?.profileUrl);
+  const [gender, setGender] = useState(user?.gender);
 
   const handleSave = () => {
     console.log('Profile Saved:', {
@@ -129,21 +130,7 @@ export default function EditableProfileCard() {
                     onChange={(e) => setLastName(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none"
                   />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    <Mail size={16} className="inline mr-2" />
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    value={emailId}
-                    onChange={(e) => setEmailId(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none"
-                  />
-                </div>
-                
+                </div> 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     <Calendar size={16} className="inline mr-2" />
