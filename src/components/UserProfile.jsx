@@ -3,7 +3,13 @@ import { Mail, User, Calendar, Award } from 'lucide-react';
 
 export default function UserProfile( {user}) {
 
-
+const { firstName,
+      lastName,
+      age,
+      skills,
+      description,
+      profileUrl,
+      gender} = user;
   return (
     <div className="w-full max-w-xs sm:max-w-sm md:max-w-md md:mt-20 mt-10  lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
     
@@ -16,7 +22,7 @@ export default function UserProfile( {user}) {
           <div className="flex justify-center -mt-10 sm:-mt-12 mb-3 sm:mb-4">
             <div className="relative">
               <img
-                src={user.profileUrl}
+                src={profileUrl}
                 alt="Profile"
                 className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white dark:border-gray-800 shadow-lg object-cover"
               />
@@ -27,10 +33,10 @@ export default function UserProfile( {user}) {
           {/* Name and description */}
           <div className="text-center mb-4 sm:mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">
-              {user.firstName} {user.lastName}
+              {firstName} {lastName}
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed px-2">
-              {user.description}
+              {description}
             </p>
           </div>
 
@@ -42,7 +48,7 @@ export default function UserProfile( {user}) {
                 <User className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500 flex-shrink-0" />
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Gender</p>
-                  <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">{user.gender}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">{gender}</p>
                 </div>
               </div>
               
@@ -50,7 +56,7 @@ export default function UserProfile( {user}) {
                 <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-pink-500 flex-shrink-0" />
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Age</p>
-                  <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">{user.age}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">{age}</p>
                 </div>
               </div>
             </div>
@@ -62,7 +68,7 @@ export default function UserProfile( {user}) {
               Skills:
             </h3>
             <div className="flex flex-wrap gap-2">
-              {user.skills.map((skill, index) => (
+              {skills.map((skill, index) => (
                 <span
                   key={index}
                   className="bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 text-xs font-medium px-3 py-1 rounded-full"
@@ -88,23 +94,23 @@ export default function UserProfile( {user}) {
         <div className="hidden md:block">
           <div className="flex items-center space-x-4 mb-4">
             <img
-              src={user.profileUrl}
+              src={profileUrl}
               alt="Profile"
               className="w-16 h-16 rounded-full border-2 border-indigo-500"
             />
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                {user.firstName} {user.lastName}
+                {firstName} {lastName}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                {user.description}
+                {description}
               </p>
             </div>
           </div>
 
           <div className="text-sm text-gray-600 dark:text-gray-300 mb-4 space-y-1">
-            <p><span className="font-semibold">Gender:</span> {user.gender}</p>
-            <p><span className="font-semibold">Age:</span> {user.age}</p>
+            <p><span className="font-semibold">Gender:</span> {gender}</p>
+            <p><span className="font-semibold">Age:</span> {age}</p>
           </div>
 
           <div className="mb-6">
@@ -112,7 +118,7 @@ export default function UserProfile( {user}) {
               Skills:
             </h3>
             <div className="flex flex-wrap gap-2">
-              {user.skills.map((skill, index) => (
+              {skills.map((skill, index) => (
                 <span
                   key={index}
                   className="bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 text-xs font-medium px-3 py-1 rounded-full"

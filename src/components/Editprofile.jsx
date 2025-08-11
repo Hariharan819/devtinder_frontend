@@ -14,20 +14,32 @@ import axios from 'axios';
 import { Base_Url } from '../Utils/constants';
 import { useDispatch } from 'react-redux';
 import { adduser } from '../Utils/userslice';
+import UserProfile from './UserProfile';
 
 
 export default function EditableProfileCard({user}) {
+
+
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age);
-  // const [skills, setSkills] = useState([user?.skills].join(', '));
-  const [skills, setSkills] = useState( Array.isArray(user?.skills) ? user.skills.join(", ") : "");
+  // const [skills, setSkills] = useState(user?.skills);
+  // Always keep two states: one array for rendering, one string for input
+const [skills, setSkills] = useState(Array.isArray(user?.skills) ? user.skills : []);
+const [skillsInput, setSkillsInput] = useState(
+  Array.isArray(user?.skills) ? user.skills.join(", ") : (user?.skills || "")
+);
+
   const [description, setDescription] = useState(user?.description);
   const [profileUrl, setProfileUrl] = useState(user?.profileUrl);
   const [gender, setGender] = useState(user?.gender);
   const [showToast, setShowToast] = useState(false);
   const [Preview,setPreview] = useState(false);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+console.log(skills);
+
+ 
 const handleSave = async() => {
 
 try {
@@ -42,8 +54,9 @@ try {
     },{
       withCredentials: true
     });
-    dispatch(adduser(res?.data?.data));
-    console.log(res);
+
+    dispatch(adduser(res?.data?.user));
+     console.log(res?.data?.user);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
 } catch (err) {
@@ -51,15 +64,53 @@ try {
 }
 };
 
+
+
+
+
+
 const handlepreview =()=>{
   setPreview(true);
+}
+const handlepreview2 =()=>{
+  setPreview(false);
 }
 
   return (
     <>
+{
+Preview && (
+  <>
+  <UserProfile user={{ firstName,
+      lastName,
+      age,
+      skills,
+      description,
+      profileUrl,
+      gender}}/>
+      <div className="flex justify-center pt-5 md:mb-0 mb-20  ">
+              <button
+               
+                className="group relative cursor-pointer px-6 py-3 bg-gradient-to-r from-green-800 via-green-700 to-green-600  text-white font-bold rounded-2xl shadow-lg hover:shadow-xl"
+              >
+                <div onClick={handlepreview2}   className="flex items-center gap-3">
+                  <Save size={20} />
+                  Done
+                </div>
+               
+              </button>
+             
+            </div>
+      </>
+)
+}
 
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
-    {showToast && (
+
+
+
+     { !Preview && (<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
+
+ {showToast && (
     <div className="fixed top-5 left-1/2 -translate-x-1/2  w-[90%] sm:w-auto max-w-sm bg-white dark:bg-gray-800  border border-green-500/30 text-gray-900 dark:text-white  px-5 py-3 rounded-xl shadow-lg z-50 flex items-center gap-3">
     <CheckCircle className="text-green-500 flex-shrink-0" size={22} />
     <span className="text-sm sm:text-base font-medium">
@@ -67,7 +118,6 @@ const handlepreview =()=>{
     </span>
    </div>
   )}
- 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -205,27 +255,29 @@ const handlepreview =()=>{
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     Skills & Technologies
                   </label>
-                  <input
+                  {/* <input
                     type="text"
                     value={skills}
                     onChange={(e) => setSkills(e.target.value)}
                     placeholder="React, Node.js, Python, etc."
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none"
-                  />
-                  
-                  {/* Skill Tags */}
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {skills.split(',').map((skill, index) => (
-                      skill.trim() && (
-                        <span
-                          key={index}
-                          className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-700"
-                        >
-                          {skill.trim()}
-                        </span>
-                      )
-                    ))}
-                  </div>
+                  /> */}
+                  <input type="text"  value={skillsInput}  onChange={(e) => {
+                    const value = e.target.value; 
+                    setSkillsInput(value);
+                    setSkills(value.split(",").map(s => s.trim()).filter(Boolean) ); }} placeholder="React, Node.js, Python, etc."
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none"/>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                    {(Array.isArray(skills) ? skills : skills.split(',')) .map((skill, index) => skill.trim() && (
+                  <span
+                     key={index}
+                     className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 
+                     dark:from-blue-900 dark:to-purple-900 text-blue-800 
+                     dark:text-blue-200 rounded-full text-sm font-medium 
+                     border border-blue-200 dark:border-blue-700"
+                   >
+                 {skill.trim()}
+                  </span> ))}</div>
                 </div> 
                 
                 <div>
@@ -248,7 +300,7 @@ const handlepreview =()=>{
             <div className="flex justify-center mb-10 gap-3">
               <button
                
-                className="group relative cursor-pointer px-8 py-1 bg-gradient-to-r from-green-800 via-green-700 to-green-600  text-white font-bold rounded-2xl shadow-lg hover:shadow-xl"
+                className="group relative cursor-pointer px-6 py-1 md:py-3 bg-gradient-to-r from-green-800 via-green-700 to-green-600  text-white font-bold rounded-2xl shadow-lg hover:shadow-xl"
               >
                 <div  onClick={handleSave} className="flex items-center gap-3">
                   <Save size={20} />
@@ -258,7 +310,7 @@ const handlepreview =()=>{
               </button>
               <button
                
-                className="group relative cursor-pointer px-8 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl "
+                className="group relative cursor-pointer px-6 py-1  md:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl "
               >
                 <div  onClick={handlepreview} className="flex items-center gap-3">
                   <Save size={20} />
@@ -270,8 +322,8 @@ const handlepreview =()=>{
           </div>
         </div>
       </div>
-    </div>
-
+    </div>)
+}
     </>
   );
 }
