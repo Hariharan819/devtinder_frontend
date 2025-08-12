@@ -26,12 +26,17 @@ useEffect(() => {
   fetchfeeduser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
- return (
-    feed && (<div>
-      <UserProfile user={feed[0]}/>
-
-    </div>)
+return (
+  feed && (
+    <div className='mb-20'>
+      {feed.map(user => (
+        <UserProfile key={user.id} user={user} />
+      ))}
+    </div>
   )
+);
+
+
 }
 
 export default Feed

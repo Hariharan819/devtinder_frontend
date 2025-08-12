@@ -35,13 +35,14 @@ const [skillsInput, setSkillsInput] = useState(
   const [gender, setGender] = useState(user?.gender);
   const [showToast, setShowToast] = useState(false);
   const [Preview,setPreview] = useState(false);
+   const [error ,setError]=useState("");
   const dispatch = useDispatch();
 
 console.log(skills);
 
  
 const handleSave = async() => {
-
+setError("")
 try {
   const res=await axios.patch(Base_Url + "/profile/edit",{
       firstName,
@@ -61,6 +62,7 @@ try {
     setTimeout(() => setShowToast(false), 2000);
 } catch (err) {
   console.error(err);
+  setError(err?.response?.data || "Profile update failed");
 }
 };
 
@@ -292,6 +294,9 @@ Preview && (
                     placeholder="Tell us about your professional background, experience, and interests..."
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-gray-600 transition-all outline-none resize-none"
                   />
+                </div>
+                <div className='flex justify-center '>
+                   { error && <p className='text-red-600 text-lg'>{ "Error : " +error}</p>}
                 </div>
               </div>
             </div>

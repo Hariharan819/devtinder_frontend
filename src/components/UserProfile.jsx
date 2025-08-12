@@ -11,7 +11,7 @@ const { firstName,
       profileUrl,
       gender} = user;
   return (
-    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md md:mt-20 mt-10  lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md md:mt-20 mt-10  mb-20  lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
     
       
       {/* Profile section */}

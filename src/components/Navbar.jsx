@@ -53,7 +53,13 @@ const  dispatch=useDispatch();
         <li>
           <Link to="/profile" className="justify-between">
             Profile
-            <span className="badge">New</span>
+           
+          </Link>
+        </li>
+         <li>
+          <Link to="/connections" className="justify-between">
+          Connections
+           
           </Link>
         </li>
         <li><a>Settings</a></li>
