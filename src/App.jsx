@@ -8,7 +8,7 @@ import { Provider } from "react-redux"
 import appstore from "./Utils/appstore"
 import Profile from "./components/Profile"
 import Connections from "./components/Connections"
-
+import ConnectionRequests from "./components/ConnectionRequests"
 function App() {
   return (
     <>
@@ -20,6 +20,7 @@ function App() {
     <Route path="/login"element={<Login/>} />
     <Route path="/profile"element={<Profile/>} />
     <Route path="/connections"element={<Connections/>} />
+     <Route path="/requests"element={<ConnectionRequests/>} />
    
     </Route>
     </Routes>
